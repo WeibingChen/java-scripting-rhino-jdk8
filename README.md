@@ -31,9 +31,13 @@ run it using
 
 ### About javax-scripting
 
-Mirror of the final state of the java.net scripting project (http://java.net/projects/Scripting)
+When you go to java.net to get [scripting project](https://java.net/projects/Scripting), you will find it closed.
+However, there are some mirror on github: https://github.com/scijava/javax-scripting
+This fork is a mod to build JSR-223 engine with JDK8 guided by the post on openjdk.java.net
 
-### rhino engine
+### rhino engine from mozilla
+https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
+
 
 ### build
 
