@@ -49,6 +49,7 @@ https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
 
 
 ### build
+0. Prerequisites: need ```jdk``` and ```ant``` installed
 1. Move to PROJECT_DIR/engines/javascript-jdk8-rhino/make and run:
 ```ant```
 2. Binaries will be placed on 
