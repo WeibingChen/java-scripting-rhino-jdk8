@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="JavaScript Engine" default="all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <!-- Property Definitions -->
+    <property name="app.name" value="js-engine"/>
+    <property name="src.dir"  value="../../javascript/src"/>
+    <property name="lib.dir"  value="../lib"/>
+    <property name="build.dir"  value="../build"/>
+    <property name="dist.jar" value="${build.dir}/${app.name}.jar"/>
+    <property name="classes.dir"  value="${build.dir}/classes"/>
+
+    <!--
+     download Ivy from web site so that it can be used even without any special installation 
+    -->
+    <property name="ivy.install.version" value="2.0.0-beta1"/>
+    <property name="ivy.jar.dir" value="${user.home}./ant/lib/"/>
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+
+    <property name="build.dir" value="build"/>
+    <property name="src.dir" value="src"/>
+
+    <target name="download-ivy">
+        <echo>Ivy dir: ${ivy.jar.dir}</echo>
+        <mkdir dir="${ivy.jar.dir}"/>
+        <!-- download Ivy from web site so that it can be used even without any special installation -->
+        <echo message="installing ivy..."/>
+        <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+             dest="${ivy.jar.file}" usetimestamp="true"/>
+    </target>
+    <target name="resolve" depends="install-ivy" description="retreive dependencies with ivy">
+        <ivy:retrieve pattern="${lib.dir}/[artifact].[ext]"/>
+    </target>
+    <!-- =================================
+          target: install-ivy
+          this target is not necessary if you put ivy.jar in your ant lib directory
+          if you already have ivy in your ant lib, you can simply remove this
+          target and the dependency the 'go' target has on it
+          ================================= -->
+    <target name="install-ivy" depends="download-ivy" description="--> install ivy">
+    <!-- try to load ivy here from local ivy dir, in case the user has not already dropped
+         it into ant's lib dir (note that the latter copy will always take precedence).
+         We will not fail as long as the ivy jar is in at least one of ant's lib dir or
+         the local lib dir. -->
+        <path id="ivy.lib.path">
+            <pathelement location="${ivy.jar.file}"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                 uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+    
+    <target name="prepare" depends="resolve">
+        <mkdir dir="${classes.dir}"/>
+    </target>
+
+
+  <target name="clean">
+     <delete dir="${build.dir}"/>
+  </target>
+
+  <path id="javac.classpath">
+    <pathelement path="${jsr223.jar}" />
+    <pathelement path="${lib.dir}/rhino.jar" />
+  </path>
+
+  <target name="compile" depends="prepare" description="Compiles the sources">
+    <javac srcdir="${src.dir}"
+           destdir="${classes.dir}"
+           target="1.8"
+           debug="on" deprecation="on">
+      <classpath refid="javac.classpath" />
+    </javac>
+    <copy todir="${classes.dir}/META-INF/services">
+      <fileset dir="${src.dir}/META-INF/services"/>
+    </copy>
+    <copy todir="${classes.dir}/META-INF/">
+      <fileset file="${src.dir}/META-INF/toplevel.js"/>
+    </copy>
+  </target>
+
+  <target name="deploy" depends="compile" description="Creates a deployment bundle">
+    <jar jarfile="${dist.jar}" basedir="${classes.dir}"/>
+    <copy file="${lib.dir}/rhino.jar" toFile="${build.dir}/js.jar"/>
+  </target>
+
+  <target name="all" depends="deploy" description="Builds sources and deployment jar"/>
+
+</project>

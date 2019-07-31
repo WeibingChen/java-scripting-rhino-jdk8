@@ -1,0 +1,6 @@
+<ivy-module version="2.0">
+    <info organisation="org.apache" module="hello-ivy"/>
+    <dependencies>
+        <dependency org="org.mozilla" name="rhino" rev="1.7R4"/>
+    </dependencies>
+</ivy-module>

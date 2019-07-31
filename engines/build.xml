@@ -25,6 +25,7 @@ download from: http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html
     <ant dir="jaskell/make" target="clean"/>
     <ant dir="java/make" target="clean"/>
     <ant dir="javascript/make" target="clean"/>
+    <ant dir="javascript-jdk8-rhino/make" target="clean"/>
     <ant dir="jawk/make" target="clean"/>
     <ant dir="jelly/make" target="clean"/>
     <ant dir="jep/make" target="clean"/>
@@ -54,6 +55,7 @@ download from: http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html
     <ant dir="jaskell/make"/>
     <ant dir="java/make"/>
     <ant dir="javascript/make"/>
+    <ant dir="javascript-jdk8-rhino/make"/>
     <ant dir="jawk/make"/>
     <ant dir="jelly/make"/>
     <ant dir="jep/make"/>
@@ -68,6 +70,7 @@ download from: http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html
     <ant dir="velocity/make"/>
     <ant dir="xpath/make"/>
     <ant dir="xslt/make"/>
+    <echo>dist.dir=${dist.dir}</echo>
   </target>
 
   <target name="images" description="Prepare binary download bundle"
@@ -179,8 +182,24 @@ download from: http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html
     <copy todir="${javascript.dir}/bin">
       <fileset file="javascript/bin/*"/>
     </copy>
+    
     <copy file="javascript/README.TXT" todir="${javascript.dir}"/>
     <copy file="javascript/LICENSE.TXT" todir="${javascript.dir}"/>
+    
+    <property name="javascript-jdk8-rhino.dir" value="${dist.dir}/javascript-jdk8-rhino"/>
+    <mkdir dir="${javascript-jdk8-rhino.dir}/build"/>
+    <mkdir dir="${javascript-jdk8-rhino.dir}/lib"/>
+    <mkdir dir="${javascript-jdk8-rhino.dir}/bin"/>
+    <copy todir="${javascript-jdk8-rhino.dir}/build">
+      <fileset file="javascript-jdk8-rhino/build/*.jar"/>
+    </copy>
+    <copy todir="${javascript-jdk8-rhino.dir}/bin">
+      <fileset file="javascript-jdk8-rhino/bin/*"/>
+    </copy>
+    
+    <copy file="javascript/README.TXT" todir="${javascript.dir}"/>
+    <copy file="javascript/LICENSE.TXT" todir="${javascript.dir}"/>
+    
 
     <property name="jawk.dir" value="${dist.dir}/jawk"/>
     <mkdir dir="${jawk.dir}/build"/>
