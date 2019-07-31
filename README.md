@@ -1,4 +1,6 @@
 # Using Rhino JSR-223 engine with JDK8
+
+
 ### TL;DR
 
 
@@ -32,7 +34,7 @@ run it using
 ### About javax-scripting
 
 When you go to java.net to get [scripting project](https://java.net/projects/Scripting), you will find it closed.
-However, there are some mirror on github: https://github.com/scijava/javax-scripting
+However, there are some mirror on github and this project forked on https://github.com/scijava/javax-scripting
 This fork is a mod to build JSR-223 engine with JDK8 guided by the post on openjdk.java.net
 
 ### rhino engine from mozilla
@@ -40,5 +42,15 @@ https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
 
 
 ### build
-
+1. Move to PROJECT_DIR/engines/javascript-jdk8-rhino/make and run:
+```ant```
+2. Binaries will be placed on 
+```PROJECT_DIR/engines/javascript-jdk8-rhino/build```
+3. Choosing rhino version:  
+It was configurated to download rhino from maven with ivy under PROJECT_DIR/engines/javascript-jdk8-rhino/make/ivy.xml
+```xml
+<dependency org="org.mozilla" name="rhino" rev="1.7R4"/>
+```
+* Rhino bundled with JDK7 has version 1.7R3: [link](https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/enhancements.html)
+* Rhino bundled with JDK6 has version 1.6R2
 
