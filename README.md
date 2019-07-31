@@ -29,7 +29,14 @@ run it using
 
 
 ### About using Rhino JSR-223 engine with JDK8
-[Read post from openjdk.java](https://wiki.openjdk.java.net/display/Nashorn/Using+Rhino+JSR-223+engine+with+JDK8)
+[Cited by Andreas Haufler](https://www.javacodegeeks.com/2015/04/using-rhino-with-java-8.html)
+
+Java 8 brings Nashorn as new JavaScript implementation for JSR 223 (javax.scripting). While this is certainly great news (Nashorn is way faster than Rhino by directly generating Java code), it comes with some challenges:  
+##### Nashorn is not 100% compatible with Rhino.  
+
+Rhino had some extensions and more or less other interpretations on how to combine the Java world with JavaScript. Therefore you cannot simply replace Rhino by Nashorn. One case (which ruined our day) is that you cannot call static methods on instances. Therefore we had to get Rhino up and running in Java 8 until we have our scripts re-written.
+
+[A post from openjdk.java](https://wiki.openjdk.java.net/display/Nashorn/Using+Rhino+JSR-223+engine+with+JDK8)
 
 ### About javax-scripting
 
