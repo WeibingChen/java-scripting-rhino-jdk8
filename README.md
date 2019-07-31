@@ -52,5 +52,12 @@ It was configurated to download rhino from maven with ivy under PROJECT_DIR/engi
 <dependency org="org.mozilla" name="rhino" rev="1.7R4"/>
 ```
 * Rhino bundled with JDK7 has version 1.7R3: [link](https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/enhancements.html)
+```xml
+<dependency org="org.mozilla" name="rhino" rev="1.7R3"/>
+```
 * Rhino bundled with JDK6 has version 1.6R2
+```xml
+<dependency org="rhino" name="rhino" rev="1.6R2"/>
+```
+
 
